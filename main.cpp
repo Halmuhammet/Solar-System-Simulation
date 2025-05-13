@@ -533,6 +533,57 @@ int main()
 		 Draw the Orbit of Planets as elliptical ring, instead of solid object
 		----------------------------------------------------------------------------------------------------*/
 		
+		//Draw Mars and its orbital
+		if (mars.isVisible) {
+			drawPlanet(shaderProgram, marsOrbitVAO, 0.0f, 0.32f, 0.29f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
+			drawPlanet(shaderProgram, marsVAO, mars.moveSpeed, 0.32f, 0.29f, mars.scale, 100, 0.0f, 0.0f, mars.rotationSpeed, true, true, true, false, mars.color, true, mars.textureID);
+		}
+
+		//Draw asteroid belt between Mars and Jupite
+		if (isDrawAsteroidBelt) {
+			drawAsteroidBelt(shaderProgram, asteroidBeltVAO, asteroidBeltMoveSpeed);
+		}
+
+		//Draw Jupiter and its orbital
+		if (jupiter.isVisible) {
+			drawPlanet(shaderProgram, jupiterOrbitVAO, 0.0f, 0.52f, 0.49f, 0.6f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);//orbital of jupiter
+			vector<float> newJupiterLocation = drawPlanet(shaderProgram, jupiterVAO, jupiter.moveSpeed, 0.52f, 0.49f, jupiter.scale, 100, 0.0f, 0.0f, jupiter.rotationSpeed, true, true, true, false, jupiter.color, true, jupiter.textureID);
+
+
+			//Draw 2 of Jupiter's Moons
+			drawPlanet(shaderProgram, jupiterMoon1VAO, jupiterMoonIo.moveSpeed, 0.05f, 0.05f, jupiterMoonIo.scale, 100, newJupiterLocation[0], newJupiterLocation[1], jupiterMoonIo.rotationSpeed, true, true, true, false, jupiterMoonIo.color, true, jupiterMoonIo.textureID);
+			drawPlanet(shaderProgram, jupiterMoon2VAO, jupiterMoonCallisto.moveSpeed, 0.07f, 0.06f, jupiterMoonCallisto.scale, 100, newJupiterLocation[0], newJupiterLocation[1], jupiterMoonCallisto.rotationSpeed, true, true, true, false, jupiterMoonCallisto.color, true, jupiterMoonCallisto.textureID);
+		}
+
+		//Draw Saturn and its orbital
+		if (saturn.isVisible) {
+			drawPlanet(shaderProgram, saturnOrbitVAO, 0.0f, 0.69f, 0.65f, 0.43f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
+			vector<float> newSaturnLocation = drawPlanet(shaderProgram, saturnVAO, saturn.moveSpeed, 0.69f, 0.65f, saturn.scale, 100, 0.0f, 0.0f, saturn.rotationSpeed, true, true, true, false, saturn.color, true, saturn.textureID);
+
+			//Draw 3 Saturn Belts - make the rings follow saturn by updateing passing saturn's new xy coordinates (this logic applies to all of moons as well)
+			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.765f + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.95f, 0.93f, 0.76f, 1.0f), false, 0);
+			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.68f + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.85f, 0.85f, 0.85f, 1.0f), false, 0);
+			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.64 + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.95f, 0.93f, 0.76f, 1.0f), false, 0);
+		}
+
+		//Draw Uranus and its orbital
+		if (uranus.isVisible) {
+			drawPlanet(shaderProgram, uranusOrbitVAO, 0.0f, 0.85f, 0.79f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
+			drawPlanet(shaderProgram, uranusVAO, uranus.moveSpeed, 0.85f, 0.79f, uranus.scale, 100, 0.0f, 0.0f, uranus.rotationSpeed, true, true, true, false, uranus.color, true, uranus.textureID);
+		}
+
+		//Draw Neptune and its orbital
+		if (neptune.isVisible) {
+			drawPlanet(shaderProgram, neptuneOrbitVAO, 0.0f, 0.95f, 0.89f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
+			drawPlanet(shaderProgram, neptuneVAO, neptune.moveSpeed, 0.95f, 0.89f, neptune.scale, 100, 0.0f, 0.0f, neptune.rotationSpeed, true, true, true, false, neptune.color, true, neptune.textureID);
+		}
+
+		// Draw a comet and its orbit
+		if (comet.isVisible) {
+			drawPlanet(shaderProgram, cometVAO, comet.moveSpeed, 0.5f, 0.2f, comet.scale, 100, 0.0, 0.0, comet.rotationSpeed, true, true, true, false, comet.color, false, 0);
+		}
+
+
 		//Draw Sun if visibility set to true
 		if (sun.isVisible) {
 			drawPlanet(shaderProgram, sunVAO, sun.moveSpeed, 0.0f, 0.0f, sun.scale, 100, 0.0f, 0.0f, sun.rotationSpeed, true, true, true, false, sun.color,true, sun.textureID);
@@ -563,55 +614,6 @@ int main()
 			drawPlanet(shaderProgram, earthMoonVAO, moon.moveSpeed, 0.04f, 0.03f, moon.scale, 100, earthNewLocation[0], earthNewLocation[1], moon.rotationSpeed, true, true, true, false, moon.color, true, moon.textureID);
 		}
 
-		//Draw Mars and its orbital
-		if (mars.isVisible) {
-			drawPlanet(shaderProgram, marsOrbitVAO, 0.0f, 0.32f, 0.29f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f),false,0);
-			drawPlanet(shaderProgram, marsVAO, mars.moveSpeed, 0.32f, 0.29f, mars.scale, 100, 0.0f, 0.0f, mars.rotationSpeed, true, true, true, false, mars.color, true, mars.textureID);
-		}
-
-		//Draw asteroid belt between Mars and Jupite
-		if (isDrawAsteroidBelt) {
-			drawAsteroidBelt(shaderProgram, asteroidBeltVAO, asteroidBeltMoveSpeed);
-		}
-
-		//Draw Jupiter and its orbital
-		if (jupiter.isVisible) {
-			drawPlanet(shaderProgram, jupiterOrbitVAO, 0.0f, 0.52f, 0.49f, 0.6f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f),false,0);//orbital of jupiter
-			vector<float> newJupiterLocation = drawPlanet(shaderProgram, jupiterVAO, jupiter.moveSpeed, 0.52f, 0.49f, jupiter.scale, 100, 0.0f, 0.0f, jupiter.rotationSpeed, true, true, true, false, jupiter.color, true, jupiter.textureID);
-
-
-			//Draw 2 of Jupiter's Moons
-			drawPlanet(shaderProgram, jupiterMoon1VAO, jupiterMoonIo.moveSpeed, 0.05f, 0.05f, jupiterMoonIo.scale, 100, newJupiterLocation[0], newJupiterLocation[1], jupiterMoonIo.rotationSpeed, true, true, true, false, jupiterMoonIo.color ,true, jupiterMoonIo.textureID);
-			drawPlanet(shaderProgram, jupiterMoon2VAO, jupiterMoonCallisto.moveSpeed, 0.07f, 0.06f, jupiterMoonCallisto.scale, 100, newJupiterLocation[0], newJupiterLocation[1], jupiterMoonCallisto.rotationSpeed, true, true, true, false, jupiterMoonCallisto.color,true,jupiterMoonCallisto.textureID);
-		}
-
-		//Draw Saturn and its orbital
-		if (saturn.isVisible) {
-			drawPlanet(shaderProgram, saturnOrbitVAO, 0.0f, 0.69f, 0.65f, 0.43f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f),false,0);
-			vector<float> newSaturnLocation = drawPlanet(shaderProgram, saturnVAO, saturn.moveSpeed, 0.69f, 0.65f, saturn.scale, 100, 0.0f, 0.0f, saturn.rotationSpeed, true, true, true, false, saturn.color,true, saturn.textureID);
-
-			//Draw 3 Saturn Belts - make the rings follow saturn by updateing passing saturn's new xy coordinates (this logic applies to all of moons as well)
-			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.765f + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.95f, 0.93f, 0.76f, 1.0f),false,0);
-			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.68f + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.85f, 0.85f, 0.85f, 1.0f),false,0);
-			drawPlanet(shaderProgram, saturnRingVAO, 0.0f, 0.0f, 0.0f, 0.64 + saturn.scale, 100, newSaturnLocation[0], newSaturnLocation[1], 0.0f, true, true, false, true, glm::vec4(0.95f, 0.93f, 0.76f, 1.0f),false, 0);
-		}
-
-		//Draw Uranus and its orbital
-		if (uranus.isVisible) {
-			drawPlanet(shaderProgram, uranusOrbitVAO, 0.0f, 0.85f, 0.79f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
-			drawPlanet(shaderProgram, uranusVAO, uranus.moveSpeed, 0.85f, 0.79f, uranus.scale, 100, 0.0f, 0.0f, uranus.rotationSpeed, true, true, true, false, uranus.color, true, uranus.textureID);
-		}
-		
-		//Draw Neptune and its orbital
-		if (neptune.isVisible) {
-			drawPlanet(shaderProgram, neptuneOrbitVAO, 0.0f, 0.95f, 0.89f, 0.31f, 100, 0.0f, 0.0f, 0.0f, false, false, false, true, glm::vec4(1.0f, 1.0f, 1.0f, 0.1f), false, 0);
-			drawPlanet(shaderProgram, neptuneVAO, neptune.moveSpeed, 0.95f, 0.89f, neptune.scale, 100, 0.0f, 0.0f, neptune.rotationSpeed, true, true, true, false, neptune.color, true, neptune.textureID);
-		}
-
-		// Draw a comet and its orbit
-		if (comet.isVisible) {
-			drawPlanet(shaderProgram, cometVAO, comet.moveSpeed, 0.5f, 0.2f, comet.scale, 100, 0.0, 0.0, comet.rotationSpeed, true, true, true, false, comet.color, false, 0);
-		}
 		
 		/*----------------------------------------------------------------------------
 		  User has options to modify the planet attributes using the ImGui library
@@ -624,19 +626,19 @@ int main()
 		glReadPixels(0, 0, 950, 950, GL_RGBA, GL_UNSIGNED_BYTE, frame.data());
 		
 		// Flip the frame vertically
-		//for (int y = 0; y < 950 / 2; ++y) {
-		//	for (int x = 0; x < 950; ++x) {
-		//		int topIndex = (y * 950 + x) * 4;
-		//		int bottomIndex = ((950 - y - 1) * 950 + x) * 4;
+		for (int y = 0; y < 950 / 2; ++y) {
+			for (int x = 0; x < 950; ++x) {
+				int topIndex = (y * 950 + x) * 4;
+				int bottomIndex = ((950 - y - 1) * 950 + x) * 4;
 
-		//		// Swap the pixels
-		//		std::swap(frame[topIndex], frame[bottomIndex]);
-		//		std::swap(frame[topIndex + 1], frame[bottomIndex + 1]);
-		//		std::swap(frame[topIndex + 2], frame[bottomIndex + 2]);
-		//		std::swap(frame[topIndex + 3], frame[bottomIndex + 3]);
-		//	}
-		//}
-		//// Add frame to GIF
+				// Swap the pixels
+				std::swap(frame[topIndex], frame[bottomIndex]);
+				std::swap(frame[topIndex + 1], frame[bottomIndex + 1]);
+				std::swap(frame[topIndex + 2], frame[bottomIndex + 2]);
+				std::swap(frame[topIndex + 3], frame[bottomIndex + 3]);
+			}
+		}
+		// Add frame to GIF
 		GifWriteFrame(&gifWriter, frame.data(), 950, 950, 0);
 
 		// Swap the back buffer with the front buffer
