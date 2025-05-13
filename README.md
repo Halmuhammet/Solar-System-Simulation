@@ -1,5 +1,5 @@
 # OpenGL Solar System Simulation
-![Solar-System-Simulation](images/output4.gif)
+![Solar-System-Simulation](output.gif)
 ## Description
 This project is an interactive OpenGL solar system simulation that allows users to explore celestial bodies, adjust their properties (like rotation speed), and visualize their movements in real-time. The project also includes the ability to record animations as GIFs.
 
