@@ -66,7 +66,7 @@ struct CelestialBodies {
 	bool isScale;             // Flag for scaling
 	bool isTranslate;         // Flag for translation
 	bool isRotate;            // Flag for rotation
-	bool isVisible;			  // Flag to allow the user add or remove planet
+	bool isVisible;		  // Flag to allow the user add or remove planet
 	bool isDrawAsRing;        // Flag for drawing the orbital as ring
 	glm::vec4 color;          // Color of the planet
 	unsigned int textureID;	  // ID of the planet texture
@@ -84,14 +84,14 @@ void useBackgroundTexture(unsigned int shaderProgram, GLuint backgroundVAO, unsi
 void setupBackgroundBuffers(GLuint& backgroundVAO, GLuint& backgroundVBO, float* backgroundVertices, size_t vertexCount);
 GLuint createShaderProgram(const char* vertexSource, const char* fragmentSource);
 void drawAsteroidBelt(unsigned int shaderProgram, GLuint asteroidBeltVAO, float asteroidBeltSpeed);
-void processInput(GLFWwindow* window, unsigned int shaderProgram, int& selectedObject,
-	CelestialBodies& sun, CelestialBodies& mercury, CelestialBodies& venus, CelestialBodies& earth,
-	CelestialBodies& mars, CelestialBodies& jupiter, CelestialBodies& saturn, CelestialBodies& uranus, CelestialBodies& neptune,
-	CelestialBodies& moon, CelestialBodies& jupiterMoonIo, CelestialBodies& jupiterMoonCallisto, CelestialBodies& comet, bool& isDrawAsteroidBelt, float& asteroidBeltMoveSpeed);
+void processInput(GLFWwindow* window, unsigned int shaderProgram, int& selectedObject, CelestialBodies& sun, CelestialBodies& mercury, 
+	 	  CelestialBodies& venus, CelestialBodies& earth, CelestialBodies& mars, CelestialBodies& jupiter, CelestialBodies& saturn, 
+		  CelestialBodies& uranus, CelestialBodies& neptune, CelestialBodies& moon, CelestialBodies& jupiterMoonIo, 
+	 	  CelestialBodies& jupiterMoonCallisto, CelestialBodies& comet, bool& isDrawAsteroidBelt, float& asteroidBeltMoveSpeed);
 
 
 /*---------------------------------------------
-Celestial Object Shader Program Source Code
+Shader Program Source Code for Celestial Objects 
 -----------------------------------------------*/
 
 // vertex shader source code - defines where in the screen the object and its texture need to be rendered
@@ -135,7 +135,7 @@ void main()
 )";
 
 /*---------------------------------------------------------------------------------------------------
-Celestial Object Shader Program Source Code
+Shader Program Source Code for background texture
 Use separate shader program for the background texture to avoid binding issues with other planets
 -----------------------------------------------------------------------------------------------------*/
 
@@ -166,9 +166,9 @@ void main()
 
 
  /*------------------------------------------------------------------------------------------------
- Define ellipse/planet vertices using trigonometry, where x = r_x*cos(angle) and y = r_y*sin(angle)
+ Define ellipse path or planet vertices using trigonometry, where x = r_x*cos(angle) and y = r_y*sin(angle)
  Divide the angle into an arbitrary number to create desired segments on the circle circumference
- And iterate through the segments on the circumference to make planet/object vertex at each segment
+ And iterate through the segments on the circumference to form a vertex at each segment
  radius_x_axis is the max radius along x-axis and radius_y_axis is the max radius along y-axis
  
  Returns a 2D vector that contains planet or ellipse vertices
